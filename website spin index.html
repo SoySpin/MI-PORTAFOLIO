@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoySpin - Portafolio Digital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #ecf0f1; /* Color de texto claro para el fondo oscuro */
+            min-height: 100vh; /* Para que el degradado cubra toda la altura */
+            display: flex;
+            flex-direction: column;
+
+            /* Degradado de azules */
+            background: linear-gradient(to right, #2c3e50, #3498db); /* Azul oscuro a azul claro */
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente para el encabezado */
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        main {
+            flex-grow: 1; /* Permite que el contenido principal ocupe el espacio restante */
+            padding: 40px 20px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: rgba(0, 0, 0, 0.3); /* Fondo semi-transparente para el contenido */
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 15px; /* Espacio entre párrafos */
+        }
+
+        /* --- Estilos para las Pestañas --- */
+        .tab-container {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.05); /* Fondo ligeramente más claro para el contenedor de pestañas */
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Asegura que todo el contenido se ajuste */
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center; /* Centra los botones de las pestañas */
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap; /* Permite que los botones se envuelvan en pantallas pequeñas */
+            gap: 5px; /* Espacio entre los botones */
+        }
+
+        .tab-button {
+            background-color: transparent;
+            border: none;
+            color: #ecf0f1;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border-radius: 5px;
+            margin: 0 5px; /* Espacio horizontal entre botones */
+        }
+
+        .tab-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .tab-button.active {
+            background-color: #3498db; /* Azul más claro para la pestaña activa */
+            color: #ffffff;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .tab-content {
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.08); /* Fondo de contenido de la pestaña */
+            border-radius: 0 0 8px 8px; /* Bordes redondeados solo abajo */
+            text-align: left; /* Alineación de texto por defecto para el contenido */
+        }
+        
+        .tab-content h2 {
+            color: #ffffff;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            display: inline-block;
+            text-align: center; /* Centra el título dentro de la pestaña */
+            width: 100%; /* Asegura que la línea inferior abarque el ancho */
+        }
+
+        /* --- Estilos para Redes Sociales --- */
+        .redes-sociales {
+            display: flex;
+            justify-content: center;
+            gap: 30px; /* Espacio entre los iconos */
+            flex-wrap: wrap; /* Para que se ajusten en pantallas pequeñas */
+            margin-top: 20px;
+        }
+
+        .redes-sociales a {
+            color: #ecf0f1;
+            font-size: 2.5em; /* Tamaño de los iconos */
+            transition: color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .redes-sociales a:hover {
+            color: #3498db; /* Cambia de color al pasar el ratón */
+            transform: translateY(-5px) scale(1.1); /* Pequeña elevación y escalado */
+        }
+
+        /* --- Estilos para Galería de Modelos --- */
+        .galeria-modelos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas */
+            gap: 25px; /* Espacio entre las imágenes */
+            margin-top: 30px;
+            text-align: center; /* Centra los items en la galería */
+        }
+
+        .modelo-item {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left; /* Alineación del texto dentro de la tarjeta */
+        }
+
+        .modelo-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .modelo-item img {
+            width: 100%;
+            height: 200px; /* Altura fija para las imágenes */
+            object-fit: cover; /* Recorta la imagen para que encaje */
+            display: block;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .modelo-info {
+            padding: 15px;
+        }
+
+        .modelo-info h3 {
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+        }
+
+        .modelo-info p {
+            font-size: 0.95em;
+            color: #bdc3c7;
+            margin-bottom: 10px;
+        }
+
+        /* Estilos específicos para las imágenes de canales de textura */
+        .modelo-info h4 {
+            color: #ffffff;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.3); /* Línea punteada para separar */
+            padding-bottom: 5px;
+        }
+        .modelo-info .texture-image {
+            width: 100%;
+            height: auto; /* Ajusta la altura automáticamente */
+            max-height: 180px; /* Altura máxima para que no sean demasiado grandes */
+            object-fit: contain; /* Ajusta la imagen dentro del contenedor sin recortar */
+            margin-bottom: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        /* Estilos para CV */
+        .cv-content {
+            text-align: center;
+        }
+        .cv-content p {
+            margin-bottom: 25px;
+            font-size: 1.15em;
+        }
+        .cv-download-button {
+            display: inline-block;
+            background-color: #28a745; /* Color verde para el botón de descarga */
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.3em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .cv-download-button:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+
+        /* --- Estilos para la sección de Streaming --- */
+        .streaming-content {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .streaming-status {
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .streaming-status .status-indicator {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-offline {
+            background-color: #e74c3c; /* Rojo para fuera de línea */
+        }
+
+        .status-online {
+            background-color: #2ecc71; /* Verde para en vivo */
+        }
+
+        .stream-button {
+            display: inline-block;
+            background-color: #9b59b6; /* Morado para el botón de stream */
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.3em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .stream-button:hover {
+            background-color: #8e44ad;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: auto; /* Empuja el footer hacia abajo */
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>¡Bienvenido a Mi Portafolio!</h1>
+        <p>Artista digital especializándose en arte de texturas y environments.</p>
+        <p>¡Toda retroalimentación es bien recibida!</p>
+    </header>
+
+    <main>
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="openTab(event, 'quien-soy')">Quién Soy</button>
+                <button class="tab-button" onclick="openTab(event, 'redes-sociales')">Mis Redes</button>
+                <button class="tab-button" onclick="openTab(event, 'galeria-modelos')">Mis Trabajos</button>
+                <button class="tab-button" onclick="openTab(event, 'streaming')">Streaming</button> <button class="tab-button" onclick="openTab(event, 'descargar-cv')">Mi CV</button>
+            </div>
+
+            <div id="quien-soy" class="tab-content">
+                <h2>Quién Soy</h2>
+                <p style="text-align: center;">Soy Emiliano Spíndola, un artista digital apasionado por la creación de mundos y personajes a través de la magia del modelado 3D.</p>
+                <p style="text-align: center;">Mi especialidad radica en dar vida a las superficies: desde la complejidad de los **materiales PBR** hasta el arte de las **texturas hechas a mano**. Me encanta explorar cómo la luz interactúa con cada detalle, ya sea recreando la pátina de un metal antiguo o la sutileza de la piel.</p>
+                <p style="text-align: center;">En este portafolio, encontrarás una selección de mis trabajos en **modelado, texturizado y desarrollo de environments**. Cada pieza es un reflejo de mi dedicación al detalle y mi búsqueda constante de realismo (o un estilo específico). ¡Espero que disfrutes explorando mi mundo digital!</p>
+            </div>
+
+            <div id="redes-sociales" class="tab-content" style="display:none;">
+                <h2>Mis Redes Sociales</h2>
+                <div class="redes-sociales">
+                    <a href="https://www.instagram.com/emi_spindola" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/emiliano-spindola-maldonado-738339270" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.artstation.com/spindola17" target="_blank" title="ArtStation"><i class="fab fa-artstation"></i></a>
+                    <a href="https://www.tiktok.com/@spindola17" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="mailto:emilianospindola@example.com?subject=Consulta%20desde%20tu%20Portafolio&body=Hola%20Emiliano," title="Enviar un correo electrónico"><i class="fas fa-envelope"></i></a> </div>
+                <p style="margin-top: 20px; font-size: 0.9em; color: #bdc3c7; text-align: center;">Haz clic en los íconos para visitar mis perfiles o enviarme un correo.</p>
+            </div>
+
+            <div id="galeria-modelos" class="tab-content" style="display:none;">
+                <h2>Galería de Modelos</h2>
+                <div class="galeria-modelos">
+                    <div class="modelo-item">
+                        <img src="IMAGENES/nombre_de_tu_modelo1_final.jpg" alt="Render Final de tu Modelo 1">
+                        <div class="modelo-info">
+                            <h3>Título de tu Modelo 1: [Nombre del Modelo]</h3>
+                            <p>Breve descripción del modelo, su propósito o estilo.</p>
+
+                            <h4>Canales de Textura de Modelo 1:</h4>
+                            <p style="font-size: 0.9em; margin-bottom: 5px;"><strong>Base Color:</strong></p>
+                            <img class="texture-image" src="IMAGENES/nombre_de_tu_modelo1_basecolor.jpg" alt="Base Color del Modelo 1">
+                            <p style="font-size: 0.85em; color: #ccc;">Mapa de color base (albedo) del modelo.</p>
+
+                            <p style="font-size: 0.9em; margin-bottom: 5px;"><strong>ORM (Occlusion, Roughness, Metallic):</strong></p>
+                            <img class="texture-image" src="IMAGENES/nombre_de_tu_modelo1_orm.jpg" alt="ORM del Modelo 1">
+                            <p style="font-size: 0.85em; color: #ccc;">Mapa que combina oclusión ambiental, rugosidad y metalicidad.</p>
+
+                            <p style="font-size: 0.9em; margin-bottom: 5px;"><strong>Normal Map:</strong></p>
+                            <img class="texture-image" src="IMAGENES/nombre_de_tu_modelo1_normal.jpg" alt="Normal Map del Modelo 1">
+                            <p style="font-size: 0.85em; color: #ccc;">Mapa para detalles de superficie sin geometría adicional.</p>
+
+                            <p style="margin-top: 15px;"><strong>Software usado:</strong> [Ej: Blender, Substance Painter, ZBrush]</p>
+                        </div>
+                    </div>
+
+                    <div class="modelo-item">
+                        <img src="IMAGENES/nombre_de_tu_modelo2_final.png" alt="Render Final de tu Modelo 2">
+                        <div class="modelo-info">
+                            <h3>Título de tu Modelo 2: [Nombre del Environment]</h3>
+                            <p>Descripción de este entorno y los desafíos de texturizado.</p>
+
+                            <h4>Canales de Textura de Modelo 2:</h4>
+                            <p style="font-size: 0.9em; margin-bottom: 5px;"><strong>Base Color:</strong></p>
+                            <img class="texture-image" src="IMAGENES/nombre_de_tu_modelo2_basecolor.png" alt="Base Color del Modelo 2">
+                            
+                            <p style="font-size: 0.9em; margin-bottom: 5px;"><strong>Roughness:</strong></p>
+                            <img class="texture-image" src="IMAGENES/nombre_de_tu_modelo2_roughness.png" alt="Roughness del Modelo 2">
+
+                            <p style="font-size: 0.9em; margin-bottom: 5px;"><strong>Normal Map:</strong></p>
+                            <img class="texture-image" src="IMAGENES/nombre_de_tu_modelo2_normal.png" alt="Normal Map del Modelo 2">
+
+                            <p style="margin-top: 15px;"><strong>Software usado:</strong> [Ej: Maya, Quixel Mixer, Unreal Engine]</p>
+                        </div>
+                    </div>
+                    
+                    </div>
+                <p style="margin-top: 30px; font-size: 1.1em; text-align: center;">¡Pronto añadiré más modelos y actualizaciones a mi portafolio!</p>
+            </div>
+
+            <div id="streaming" class="tab-content" style="display:none;">
+                <h2>Mi Streaming</h2>
+                <div class="streaming-content">
+                    <p style="font-size: 1.15em; margin-bottom: 15px;">Aquí puedes ver si estoy en vivo y unirte a la transmisión.</p>
+                    <div class="streaming-status">
+                        Estado: <span id="stream-status-indicator" class="status-offline"></span> <span id="stream-status-text">Fuera de Línea</span>
+                    </div>
+                    <a href="https://www.twitch.tv/tucanal" target="_blank" class="stream-button">Ir a Mi Canal de Streaming</a>
+                    <p style="margin-top: 25px; font-size: 0.9em; color: #bdc3c7;">Haz clic en el botón para visitar mi canal de streaming.</p>
+                </div>
+            </div>
+
+            <div id="descargar-cv" class="tab-content" style="display:none;">
+                <div class="cv-content">
+                    <h2>Mi Currículum Vitae</h2>
+                    <p>Puedes descargar mi CV en formato PDF para obtener más detalles sobre mi experiencia y habilidades.</p>
+                    <a href="https://drive.google.com/file/d/1v73sP9CiNZYJNDMKDhb78eESw4eN7txp/view?usp=sharing" target="_blank" class="cv-download-button">Descargar CV</a>
+                    <p style="margin-top: 25px; font-size: 0.9em; color: #bdc3c7;">El CV se abrirá en una nueva pestaña.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Soy Spin. Todos los derechos reservados.</p>
+    </footer>
+
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoySpin - Portafolio Digital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #ffffff; /* Color de texto blanco principal */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+
+            /* Degradado de negros/grises oscuros */
+            background: linear-gradient(to right, #0a0a0a, #1a1a1a);
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente más oscuro para el encabezado */
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 40px 20px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: rgba(26, 26, 26, 0.6); /* Fondo semi-transparente más oscuro para el contenido principal */
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin
