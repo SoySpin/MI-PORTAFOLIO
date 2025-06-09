@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoySpin - Portafolio Digital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #ffffff; /* Color de texto blanco principal */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+
+            /* Degradado de negros/grises oscuros */
+            background: linear-gradient(to right, #0a0a0a, #1a1a1a);
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente más oscuro para el encabezado */
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 40px 20px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: rgba(26, 26, 26, 0.6); /* Fondo semi-transparente más oscuro para el contenido principal */
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* --- Estilos para las Pestañas --- */
+        .tab-container {
+            width: 100%;
+            background-color: rgba(50, 50, 50, 0.1); /* Fondo ligeramente más claro para el contenedor de pestañas */
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .tab-button {
+            background-color: transparent;
+            border: none;
+            color: #ffffff;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+
+        .tab-button:hover {
+            background-color: rgba(231, 76, 60, 0.2); /* Rojo semi-transparente al pasar el ratón */
+            color: #ffffff;
+        }
+
+        .tab-button.active {
+            background-color: #e74c3c; /* Rojo vibrante para la pestaña activa */
+            color: #ffffff;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(231, 76, 60, 0.4); /* Sombra roja */
+        }
+
+        .tab-content {
+            padding: 30px;
+            background-color: rgba(26, 26, 26, 0.8); /* Fondo más oscuro y opaco para el contenido de la pestaña */
+            border-radius: 0 0 8px 8px;
+            text-align: left;
+        }
+        
+        .tab-content h2 {
+            color: #e74c3c; /* Títulos en rojo vibrante */
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            border-bottom: 2px solid #e74c3c; /* Línea en rojo */
+            padding-bottom: 10px;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* --- Estilos para Redes Sociales --- */
+        .redes-sociales {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .redes-sociales a {
+            color: #ffffff;
+            font-size: 2.5em;
+            transition: color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .redes-sociales a:hover {
+            color: #e74c3c; /* Iconos en rojo al pasar el ratón */
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* --- Estilos para Trabajos (Galería de Modelos/Proyectos) --- */
+        .galeria-modelos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas responsivas, un poco más grandes */
+            gap: 25px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .modelo-item {
+            background-color: rgba(255, 255, 255, 0.08); /* Fondo ligeramente transparente para los ítems */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+        }
+
+        .modelo-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3); /* Sombra con toque rojo al pasar el ratón */
+        }
+
+        .modelo-item img {
+            width: 100%;
+            height: 220px; /* Altura un poco mayor para las imágenes */
+            object-fit: cover;
+            display: block;
+            border-bottom: 2px solid #e74c3c; /* Borde inferior rojo */
+        }
+
+        .modelo-info {
+            padding: 20px; /* Más padding interno */
+        }
+
+        .modelo-info h3 {
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.5em; /* Títulos un poco más grandes */
+        }
+
+        .modelo-info p {
+            font-size: 1em; /* Párrafos un poco más grandes */
+            color: #bdc3c7;
+            margin-bottom: 10px;
+        }
+
+        /* Contenedor responsivo para videos y presentaciones de Canva/YouTube/Vimeo */
+        .video-container, .canva-embed-container {
+            position: relative; 
+            width: 100%; 
+            height: 0; 
+            padding-top: 56.25%; /* 16:9 Aspect Ratio (común para videos y presentaciones) */
+            padding-bottom: 0; 
+            box-shadow: 0 2px 8px 0 rgba(0,0,0,0.3);
+            margin-top: 1.6em; 
+            margin-bottom: 0.9em; 
+            overflow: hidden;
+            border-radius: 8px; 
+            will-change: transform;
+            background: #000;
+        }
+        .video-container iframe, .canva-embed-container iframe {
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            top: 0; 
+            left: 0; 
+            border: none; 
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Estilos para CV y Demo Reel Buttons */
+        .download-button {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.3em;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 20px;
+        }
+        .download-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(231, 76, 60, 0.4);
+        }
+
+        /* Estilos para la foto en "Quién Soy" - se eliminaron las clases .profile-photo y .content-with-photo */
+        /* Ya no son necesarios, ya que la imagen se quitó. */
+        #quien-soy .text-column { /* Mantener el estilo para el texto de la columna */
+            flex: 1;
+            min-width: 300px;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: auto;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>¡Bienvenido a Mi Portafolio!</h1>
+        <p>Artista digital especializándose en arte de texturas y environments.</p>
+        <p>¡Toda retroalimentación es bien recibida!</p>
+    </header>
+
+    <main>
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="openTab(event, 'quien-soy')">Quién Soy</button>
+                <button class="tab-button" onclick="openTab(event, 'redes-sociales')">Mis Redes</button>
+                <button class="tab-button" onclick="openTab(event, 'trabajos')">Trabajos</button>
+                <button class="tab-button" onclick="openTab(event, 'demo-reel')">Demo Reel</button>
+                <button class="tab-button" onclick="openTab(event, 'descargar-cv')">Mi CV</button>
+            </div>
+
+            <div id="quien-soy" class="tab-content">
+                <h2>Quién Soy</h2>
+                <div class="text-column" style="margin: 0 auto; max-width: 800px;"> <p style="text-align: left;">Soy Emiliano Spíndola, un artista digital apasionado por la creación de mundos y personajes a través de la magia del modelado 3D.</p>
+                    <p style="text-align: left;">Mi especialidad radica en dar vida a las superficies: desde la complejidad de los materiales PBR hasta el arte de las texturas hechas a mano. Me encanta explorar cómo la luz interactúa con cada detalle, ya sea recreando la pátina de un metal antiguo o la sutileza de la piel.</p>
+                    <p style="text-align: left; margin-top: 20px;">Además, soy streamer de medio tiempo, enfocado en compartir mi pasión por los videojuegos y ayudar a difundir juegos de estudios pequeños para su crecimiento. También comparto mi trabajo como texture artist, y mi experiencia sobre mi carrera y vida foránea, buscando ayudar a los chicos y chicas a seguir sus sueños y pasiones.</p>
+                    <p style="text-align: left; margin-top: 20px;">En este portafolio, encontrarás una selección de mis trabajos en modelado, texturizado y desarrollo de environments. Cada pieza es un reflejo de mi dedicación al detalle y mi búsqueda constante de realismo (o un estilo específico). ¡Espero que disfrutes explorando mi mundo digital!</p>
+                </div>
+            </div>
+
+            <div id="redes-sociales" class="tab-content" style="display:none;">
+                <h2>Mis Redes Sociales</h2>
+                <div class="redes-sociales">
+                    <a href="https://www.instagram.com/emi_spindola" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/emiliano-spindola-maldonado-738339270" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.artstation.com/spindola17" target="_blank" title="ArtStation"><i class="fab fa-artstation"></i></a>
+                    <a href="https://www.tiktok.com/@spindola17" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                <p style="margin-top: 20px; font-size: 0.9em; color: #bdc3c7; text-align: center;">Haz clic en los íconos para visitar mis perfiles.</p>
+            </div>
+
+            <div id="trabajos" class="tab-content" style="display:none;">
+                <h2>Mis Trabajos</h2>
+                <div class="galeria-modelos">
+                    <div class="modelo-item">
+                        <div class="modelo-info" style="text-align: center;">
+                            <h3>The Last Hunt - Video del Proyecto</h3>
+                            <p>Un vistazo al proyecto "The Last Hunt", mostrando el resultado final y el ambiente.</p>
+                            
+                            <div class="canva-embed-container">
+                                <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                                    src="https://www.canva.com/design/DAGX3q4xZkg/H98KCmGloS659MkFPrOskg/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+                                </iframe>
+                            </div>
+                            <p style="font-size: 0.85em; color: #ccc; margin-top: 5px;">Video: "EmilianoSpindola_TheLastHunt_EvidenciaFinal"</p>
+
+                            <h4 style="margin-top: 30px;">Presentación Detallada del Proyecto:</h4>
+                            <p>Explora a fondo el proceso de desarrollo y diseño de "The Last Hunt" en esta presentación interactiva.</p>
+                            <div class="canva-embed-container">
+                                <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                                    src="https://www.canva.com/design/DAGX1aSoqxI/HUYRzYRtbntlWJrPAza0jA/watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+                                </iframe>
+                            </div>
+                            <p style="font-size: 0.85em; color: #ccc; margin-top: 5px;">Presentación: "THE LAST HUNT"</p>
+
+                            <p style="margin-top: 15px;">Software usado en el proyecto: [Ej: Unreal Engine, Blender, Substance Designer]</p>
+                        </div>
+                    </div>
+                    <div class="modelo-item">
+                        <div class="modelo-info" style="text-align: center;">
+                            <h3>Trouble Train - Presentación y Proyecto</h3>
+                            <p>Presentación detallada de las texturas y materiales del proyecto Trouble Train.</p>
+                            <p style="color: #e74c3c; font-weight: normal; margin-bottom: 10px;">
+                                Juego ganador a mejor experiencia VR en equipo 2024 y mejor experiencia VR en equipo nivel nacional 2025.
+                            </p>
+                            
+                            <div class="canva-embed-container">
+                                <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                                    src="https://www.canva.com/design/DAGiAEyJfJ0/qe7jk-ob4tz1dqu8fZuD_w/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+                                </iframe>
+                            </div>
+                            <p style="font-size: 0.85em; color: #ccc; margin-top: 5px;">Presentación: "Trouble Train Textures"</p>
+
+                            <a href="https://www.artstation.com/artwork/8BoLLx" target="_blank" class="download-button" style="margin-top: 20px;">
+                                Ver Proyecto en ArtStation
+                            </a>
+                            <p style="font-size: 0.9em; color: #bdc3c7; margin-top: 10px;">Haz clic para ver el proyecto completo en ArtStation.</p>
+                        </div>
+                    </div>
+                    <div class="modelo-item">
+                        <div class="modelo-info" style="text-align: center;">
+                            <h3>T-Quest - Juego 2D</h3>
+                            <p>Platformer 2D en honor a mi mascota Tala, en la cual busca sus juguetes para estar tranquila.</p>
+                            
+                            <a href="https://www.artstation.com/artwork/lGlooO" target="_blank" class="download-button" style="margin-top: 20px;">
+                                Ver Proyecto en ArtStation
+                            </a>
+                            <p style="font-size: 0.9em; color: #bdc3c7; margin-top: 10px;">Haz clic para ver el proyecto completo en ArtStation.</p>
+                        </div>
+                    </div>
+                    <div class="modelo-item">
+                        <div class="modelo-info" style="text-align: center;">
+                            <h3>Siniy App - Demo Jugable</h3>
+                            <p>Explora y prueba la aplicación Siniy directamente en Unity Play.</p>
+                            
+                            <a href="https://play.unity.com/en/games/c1e19edb-b266-42b7-9d09-c5eccaaa3cae/siniy-beta-v2" target="_blank" class="download-button" style="margin-top: 20px;">
+                                ¡Jugar Siniy App Ahora!
+                            </a>
+                            <p style="font-size: 0.9em; color: #bdc3c7; margin-top: 10px;">Haz clic para probar la demo en Unity Play.</p>
+                        </div>
+                    </div>
+                    </div>
+                <p style="margin-top: 30px; font-size: 1.1em; text-align: center;">¡Pronto añadiré más modelos y actualizaciones a mi portafolio!</p>
+            </div>
+
+            <div id="demo-reel" class="tab-content" style="display:none;">
+                <div class="cv-content">
+                    <h2>Mi Demo Reel</h2>
+                    <p>Demo de trabajo de 10 semanas de texturas y montado de un pequeño environment más mi trabajo en la app Siniy.</p>
+                    
+                    <div class="canva-embed-container">
+                        <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                            src="https://www.canva.com/design/DAGpzVuzu8c/mEquuzOZQGOgnXkcOkOGBA/watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+                        </iframe>
+                    </div>
+                    <p style="font-size: 0.85em; color: #ccc; margin-top: 5px;">Demo Reel: "Emiliano Spindola_Demo reel"</p>
+
+                    <a href="https://drive.google.com/file/d/1RCcknGO-s-r_U-85qd8kyGddn4HsG-H6/view?usp=sharing" target="_blank" class="download-button" style="margin-top: 30px;">
+                        Ver Demo Reel en Google Drive (Alternativa)
+                    </a>
+                    <p style="margin-top: 25px; font-size: 0.9em; color: #bdc3c7;">El video se reproduce directamente aquí. El botón de Google Drive es una alternativa si el reproductor incrustado no carga.</p>
+                </div>
+            </div>
+
+            <div id="descargar-cv" class="tab-content" style="display:none;">
+                <div class="cv-content">
+                    <h2>Mi Currículum Vitae</h2>
+                    <p>Puedes descargar mi CV en formato PDF para obtener más detalles sobre mi experiencia y habilidades.</p>
+                    <a href="https://drive.google.com/file/d/1v73sP9CiNZYJNDMKDhb78eESw4eN7txp/view?usp=sharing" target="_blank" class="download-button">Descargar CV</a>
+                    <p style="margin-top: 25px; font-size: 0.9em; color: #bdc3c7;">El CV se abrirá en una nueva pestaña.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Soy Spin. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Función JavaScript para manejar las pestañas
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+
+            // Oculta todos los contenidos de las pestañas
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Desactiva la clase "active" de todos los botones de las pestañas
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
+            }
+
+            // Muestra el contenido de la pestaña actual y añade la clase "active" al botón
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Por defecto, abre la pestaña "Quién Soy" al cargar la página
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector(".tab-button").click(); // Simula un clic en el primer botón
+        });
+    </script>
+</body>
+</html>
